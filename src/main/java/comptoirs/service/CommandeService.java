@@ -103,7 +103,7 @@ public class CommandeService {
         var produit = produitDao.findById(produitRef).orElseThrow();
 
         // Vérifier si la quantité en stock est inférieure à la quantité et si la quantité est positive
-        if (produit.getUnitesEnStock() < quantite && quantite > 0) {
+        if ((produit.getUnitesEnStock() < quantite && quantite > 0) || produit.isIndisponible()) {
             throw new IllegalStateException("La quantité en stock est insuffisante");
         }
 
