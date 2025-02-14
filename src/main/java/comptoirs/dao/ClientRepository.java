@@ -16,15 +16,11 @@ public interface ClientRepository extends JpaRepository<Client, String> {
      * Calcule le nombre d'articles commandés par un client
      * @param clientCode la clé du client
      */
-    @Query("SELECT 0")
+    // Attention : SUM peut renvoyer NULL si on ne trouve pas d'enregistrement
+    // On utilise COALESCE pour renvoyer 0 dans ce cas
+    // http://www.h2database.com/html/functions.html#coalesce
+    @Query("SELECT COALESCE(SUM(l.quantite), 0) FROM Ligne l WHERE l.commande.client.code = :clientCode")
     int nombreArticlesCommandesPar(String clientCode);
-
-    /**
-     * Recherche un client par son nom de société
-     * @param societe le nom de la société à rechercher
-     * @return un Optional contenant le client trouvé, ou Optional.empty() si aucun client ne correspond
-     */
-    Optional<Client> findBySociete(String societe);
 
     /**
      * Trouve pour un client donné le nombre de produits différents qu'il a commandé

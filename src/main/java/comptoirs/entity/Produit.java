@@ -34,6 +34,7 @@ public class Produit {
 	private BigDecimal prixUnitaire = BigDecimal.TEN;
 
 	@ToString.Exclude
+    @Getter
     // Contrainte métier à respecter : >= unitesCommandees
 	private int unitesEnStock = 0;
 

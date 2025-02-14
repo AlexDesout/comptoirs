@@ -34,6 +34,7 @@ public class Commande {
 
 	@Basic(optional = true)
 	@ToString.Exclude
+    @Getter
 	private LocalDate envoyeele = null;
 
     // BigDecimal est la classe Java recommandée pour les montants monétaires
